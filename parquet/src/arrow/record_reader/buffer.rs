@@ -232,6 +232,7 @@ impl<T: ScalarValue> ValuesBuffer for ScalarBuffer<T> {
             if level_pos <= value_pos {
                 break;
             }
+            // 找到完整列中的位置。
             slice[level_pos] = slice[value_pos];
         }
     }

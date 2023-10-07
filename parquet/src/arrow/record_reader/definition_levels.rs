@@ -130,7 +130,7 @@ impl LevelsBufferSlice for DefinitionLevelBuffer {
 }
 
 enum MaybePacked {
-    Packed(PackedDecoder),
+    Packed(PackedDecoder), // 为 bit_width = 1 做的优化
     Fallback(DefinitionLevelDecoderImpl),
 }
 

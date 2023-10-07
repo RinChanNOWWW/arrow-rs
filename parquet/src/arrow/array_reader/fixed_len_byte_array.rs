@@ -288,7 +288,8 @@ impl ValuesBuffer for FixedLenByteArrayBuffer {
 
             let level_pos_bytes = level_pos * self.byte_length;
             let value_pos_bytes = value_pos * self.byte_length;
-
+            // 这里相当于进行了一个 memcpy。
+            // 感觉不如维护 offsets 的边长 byte_array……
             for i in 0..self.byte_length {
                 slice[level_pos_bytes + i] = slice[value_pos_bytes + i]
             }

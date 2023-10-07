@@ -105,11 +105,13 @@ impl<OffsetSize: OffsetSizeTrait> ArrayReader for ListArrayReader<OffsetSize> {
         }
 
         if !rep_levels.is_empty() && rep_levels[0] != 0 {
+            // 每一个 record 的 rep levle 都是从 0 开始。
             // This implies either the source data was invalid, or the leaf column
             // reader did not correctly delimit semantic records
             return Err(general_err!("first repetition level of batch must be 0"));
         }
 
+        // 与 Dremel 论文不同的点：有一个 def level 用来表示空 list。
         // A non-nullable list has a single definition level indicating if the list is empty
         //
         // A nullable list has two definition levels associated with it:

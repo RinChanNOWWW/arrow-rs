@@ -152,6 +152,8 @@ impl ArrayReader for StructArrayReader {
 
                     for (rep_level, def_level) in rep_levels.iter().zip(def_levels) {
                         if rep_level > &self.struct_rep_level {
+                            // 这种情况的意思是，这些 value 都属于内部的 list array。
+                            //（rep_level = self.struct_rep_level 为 record 的分界点)
                             // Already handled by inner list - SKIP
                             continue;
                         }

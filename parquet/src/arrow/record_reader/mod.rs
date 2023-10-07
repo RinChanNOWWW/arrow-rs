@@ -224,6 +224,7 @@ where
             .unwrap()
             .read_records(batch_size, def_levels, rep_levels, values)?;
 
+        // `values_read` 只包含有效值，不包含 null 值。（因为 parquet 里面 null 值不占用空间）
         if values_read < levels_read {
             let def_levels = self.def_levels.as_ref().ok_or_else(|| {
                 general_err!(
@@ -232,7 +233,7 @@ where
             })?;
 
             self.values.pad_nulls(
-                self.num_values,
+                self.num_values, // 包含 null 值
                 values_read,
                 levels_read,
                 def_levels.nulls().as_slice(),

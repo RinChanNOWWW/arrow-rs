@@ -235,6 +235,7 @@ pub struct ArrayData {
 
     /// The child(ren) of this array. Only non-empty for nested types, currently
     /// `ListArray` and `StructArray`.
+    /// Dictionary 类型的 values 也存在 child_data 中。
     child_data: Vec<ArrayData>,
 
     /// The null bitmap. A `None` value for this indicates all values are non-null in
